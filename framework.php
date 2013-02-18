@@ -4,9 +4,13 @@ set_exception_handler('App::exception'); // bootstrap
 class App {
   protected $_server = array();
 
+  public $request;
+
   public function __construct() {
     // skipped mocking here
     $this->_server = $_SERVER;
+
+    $this->request = new Request;
   }
 
   public function get($pattern, $callback) {
@@ -67,6 +71,13 @@ class AppJson extends App {
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(call_user_func_array($callback, $args));
     throw new Halt(); // Exception instead of exit;
+  }
+}
+
+class Request {
+  public function post($var)
+  {
+    return isset($_POST[$var]) ? $_POST[$var] : null;
   }
 }
 
