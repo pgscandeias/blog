@@ -21,23 +21,27 @@ $app->get('/login', function() use ($view) {
 });
 
 $app->post('/login', function() use ($app, $view) {
-    $email = $app->request->post('email');
+    $email = (string) $app->request->post('email');
     $token = User::generateLoginToken($email);
     $link = 'http://blog/auth?t='.$token;
 
-    $emailBody = $view->render('auth/email.tpl.php', array('link' => $link));
+    $user = User::findOneBy(array('email' => $email));
+    if ($user) {
+        $emailBody = $view->render('auth/email.tpl.php', array('link' => $link));
+        #$user->loginToken = $token;
+        $user->loginToken = "12345";
+        $user->save();
 
-    $user = new User(array(
-        'email' => $email,
-        'loginToken' => $token,
-    ));
-    $user->save();
+        try {
+            $app->mail->send($email, 'Access link', $emailBody);
+            $app->session->set('wasLoginMailSent', true);
+            $app->redirect('/login/sent');
+        } catch (Exception $e) {
+            echo $view->render('auth/email_error.tpl.php');
+        }
 
-    if ($app->mail->send($email, 'Access link', $emailBody)) {
-        $app->session->set('wasLoginMailSent', true);
-        $app->redirect('/login/sent');
     } else {
-        echo $view->render('auth/email_error.tpl.php');
+        $app->redirect('/login');
     }
 });
 
@@ -58,11 +62,21 @@ $app->get('/auth?*', function() use ($app) {
     if (!$user) { $app->redirect('/'); }
 
     // Burn token
-    $user->loginToken = null;
-    $user->save();
+    // $user->loginToken = null;
+    // $user->save();
 
     // Start user session
     $app->session->set('user', $user);
+
+    // Remember the user
+    $cookie = new Cookie();
+    $cookie
+        ->setName('user')
+        ->setValue('logged')
+        ->setExpire(time() + 3600 * 24 * 30)
+        ->setPath('/')
+        ->send()
+    ;
 
     // Admin entry point
     $app->redirect('/admin/posts');

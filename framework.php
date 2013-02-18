@@ -7,6 +7,7 @@ class App {
 
   public $request;
   public $session;
+  public $cookie;
   public $config;
   public $mail;
 
@@ -16,6 +17,7 @@ class App {
     $this->config = new Config(__DIR__ . '/config.ini');
     $this->request = new Request;
     $this->session = new Session;
+    $this->cookie = new Cookie;
     $this->mail = new Mail($this->config);
   }
 
@@ -27,7 +29,9 @@ class App {
 
   public function firewall()
   {
-    if (!($this->session->get('user'))) {
+    $sessionCookieName = 'user';
+    $sessionTokenValue = true;
+    if ($this->cookie->get($sessionCookieName) != $sessionTokenValue) {
       $this->redirect('/');
     }
   }
@@ -119,6 +123,47 @@ class Session {
   public function remove($var)
   {
     unset($_SESSION[$var]);
+  }
+}
+
+class Cookie {
+  public $name = '';
+  public $value = '';
+  public $expire = 0;
+  public $path = '/';
+  public $domain = null;
+  public $secure = false;
+  public $httponly = true;
+
+  public function __construct()
+  {
+    $this->domain = $_SERVER['HTTP_HOST'];
+  }
+
+  public function setName($value) { $this->name = $value; return $this; }
+  public function setValue($value) { $this->value = $value; return $this; }
+  public function setExpire($value) { $this->expire = $value; return $this; }
+  public function setPath($value) { $this->path = $value; return $this; }
+  public function setDomain($value) { $this->domain = $value; return $this; }
+  public function setSecure($value) { $this->secure = $value; return $this; }
+  public function setHttponly($value) { $this->httponly = $value; return $this; }
+
+  public function send()
+  {
+    setcookie(
+      $this->name,
+      $this->value,
+      $this->expire,
+      $this->path,
+      $this->domain,
+      $this->secure,
+      $this->httponly
+    );
+  }
+
+  public function get($value)
+  {
+    return isset($_COOKIE[$value]) ? $_COOKIE[$value] : null;
   }
 }
 
