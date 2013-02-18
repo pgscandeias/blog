@@ -25,6 +25,13 @@ class App {
     header('Location: '.$url);
   }
 
+  public function firewall()
+  {
+    if (!($this->session->get('user'))) {
+      $this->redirect('/');
+    }
+  }
+
   public function get($pattern, $callback) {
     $this->_route('GET', $pattern, $callback);
   }

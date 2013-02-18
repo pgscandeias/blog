@@ -68,8 +68,9 @@ $app->get('/auth?*', function() use ($app) {
     $app->redirect('/admin/posts');
 });
 
-$app->get('/logout', function() use ($view) {
-    echo "Ending session";
+$app->get('/logout', function() use ($app) {
+    session_destroy();
+    $app->redirect('/');
 });
 
 
@@ -88,10 +89,14 @@ $app->get('/post/:slug', function($slug) use ($view) {
 #
 # Admin
 #
-$app->get('/admin/write', function() use ($view) {
+$app->get('/admin/write', function() use ($app, $view) {
+    $app->firewall();
+
     echo $view->render('admin/write.tpl.php', array('foo' => 'bar'));
 });
 
 $app->get('/admin/posts', function() use ($app, $view) {
+    $app->firewall();
+
     echo "Admin zone";
 });
