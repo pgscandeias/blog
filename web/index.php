@@ -25,25 +25,9 @@ $app->post('/login', function() use ($app, $view) {
     $token = User::generateLoginToken($email);
     $link = 'http://blog/auth?t='.$token;
 
-    $emailBody = $view->render('auth/email.tpl.php', array(
-        'link' => $link,
-    ));
+    $emailBody = $view->render('auth/email.tpl.php', array('link' => $link));
 
-    $transport = Swift_SmtpTransport::newInstance()
-                ->setHost($app->config->get('smtp_host'))
-                ->setPort($app->config->get('smtp_port'))
-                ->setEncryption($app->config->get('smtp_encryption'))
-                ->setUsername($app->config->get('smtp_username'))
-                ->setPassword($app->config->get('smtp_password'))
-    ;
-    $mailer = Swift_Mailer::newInstance($transport);
-    $message = Swift_Message::newInstance()
-                ->setSubject('Access link')
-                ->setFrom(array($app->config->get('address') => $app->config->get('name')))
-                ->setTo(array($email))
-                ->setBody($emailBody)
-    ;
-    if ($mailer->send($message)) {
+    if ($app->mail->send($email, 'Access link', $emailBody)) {
         $app->session->set('wasLoginMailSent', true);
         $app->redirect('/login/sent');
     } else {

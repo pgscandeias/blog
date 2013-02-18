@@ -8,6 +8,7 @@ class App {
   public $request;
   public $session;
   public $config;
+  public $mail;
 
   public function __construct() {
     // skipped mocking here
@@ -15,6 +16,7 @@ class App {
     $this->config = new Config(__DIR__ . '/config.ini');
     $this->request = new Request;
     $this->session = new Session;
+    $this->mail = new Mail($this->config);
   }
 
   public function redirect($url, $status = 200)
@@ -105,6 +107,35 @@ class Session {
   public function set($var, $value)
   {
     $_SESSION[$var] = $value;
+  }
+}
+
+class Mail {
+  public $config;
+
+  public function __construct(Config $config)
+  {
+    $this->config = $config;
+  }
+
+  public function send($to, $subject, $body)
+  {
+    $transport = Swift_SmtpTransport::newInstance()
+                ->setHost($this->config->get('smtp_host'))
+                ->setPort($this->config->get('smtp_port'))
+                ->setEncryption($this->config->get('smtp_encryption'))
+                ->setUsername($this->config->get('smtp_username'))
+                ->setPassword($this->config->get('smtp_password'))
+    ;
+    $mailer = Swift_Mailer::newInstance($transport);
+    $message = Swift_Message::newInstance()
+                ->setSubject($subject)
+                ->setFrom(array($this->config->get('address') => $this->config->get('name')))
+                ->setTo(array($to))
+                ->setBody($body)
+    ;
+
+    return $mailer->send($message);
   }
 }
 
