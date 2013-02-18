@@ -1,15 +1,17 @@
 <?php
 set_exception_handler('App::exception'); // bootstrap
+require_once 'config.php';
 
 class App {
   protected $_server = array();
 
   public $request;
+  public $config;
 
   public function __construct() {
     // skipped mocking here
     $this->_server = $_SERVER;
-
+    $this->config = new Config(__DIR__ . '/config.ini');
     $this->request = new Request;
   }
 
