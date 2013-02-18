@@ -17,6 +17,11 @@ class App {
     $this->_route('DELETE', $pattern, $callback);
   }
 
+  public function post($pattern, $callback) {
+    $this->_route('POST', $pattern, $callback);
+  }
+
+
   protected function _route($method, $pattern, $callback) {
     if ($this->_server['REQUEST_METHOD']!=$method) return;
 
