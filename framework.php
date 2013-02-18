@@ -108,6 +108,11 @@ class Session {
   {
     $_SESSION[$var] = $value;
   }
+
+  public function remove($var)
+  {
+    unset($_SESSION[$var]);
+  }
 }
 
 class Mail {

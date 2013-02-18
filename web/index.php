@@ -27,6 +27,12 @@ $app->post('/login', function() use ($app, $view) {
 
     $emailBody = $view->render('auth/email.tpl.php', array('link' => $link));
 
+    $user = new User(array(
+        'email' => $email,
+        'loginToken' => $token,
+    ));
+    $user->save();
+
     if ($app->mail->send($email, 'Access link', $emailBody)) {
         $app->session->set('wasLoginMailSent', true);
         $app->redirect('/login/sent');
@@ -37,14 +43,29 @@ $app->post('/login', function() use ($app, $view) {
 
 $app->get('/login/sent', function() use ($app, $view) {
     if ($app->session->get('wasLoginMailSent')) {
+        $app->session->remove('wasLoginMailSent');
         echo $view->render('auth/email_success.tpl.php');
 
     } else { $app->redirect('/'); }
 });
 
 $app->get('/auth?*', function() use ($app) {
-    $token = $app->request->get('t');
-    var_dump($token);
+    $user = false;
+    $token = (string) trim($app->request->get('t'));
+    if (!empty($token)) {
+        $user = User::findOneBy(array('loginToken' => $token));
+    }
+    if (!$user) { $app->redirect('/'); }
+
+    // Burn token
+    $user->loginToken = null;
+    $user->save();
+
+    // Start user session
+    $app->session->set('user', $user);
+
+    // Admin entry point
+    $app->redirect('/admin/posts');
 });
 
 $app->get('/logout', function() use ($view) {
@@ -71,6 +92,6 @@ $app->get('/admin/write', function() use ($view) {
     echo $view->render('admin/write.tpl.php', array('foo' => 'bar'));
 });
 
-$app->post('/admin/posts', function() {
-
+$app->get('/admin/posts', function() use ($app, $view) {
+    echo "Admin zone";
 });
