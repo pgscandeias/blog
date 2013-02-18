@@ -1,5 +1,6 @@
 <?php
 # Core
+session_start();
 define("PWD", __DIR__);
 require_once PWD . '/../models.php';
 require_once PWD . '/../framework.php';
@@ -43,10 +44,18 @@ $app->post('/login', function() use ($app, $view) {
                 ->setBody($emailBody)
     ;
     if ($mailer->send($message)) {
-        echo "Sent";
+        $app->session->set('wasLoginMailSent', true);
+        $app->redirect('/login/sent');
     } else {
-        echo "Mail fail";
+        echo $view->render('auth/email_error.tpl.php');
     }
+});
+
+$app->get('/login/sent', function() use ($app, $view) {
+    if ($app->session->get('wasLoginMailSent')) {
+        echo $view->render('auth/email_success.tpl.php');
+
+    } else { $app->redirect('/'); }
 });
 
 $app->get('/auth?*', function() use ($app) {

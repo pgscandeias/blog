@@ -6,6 +6,7 @@ class App {
   protected $_server = array();
 
   public $request;
+  public $session;
   public $config;
 
   public function __construct() {
@@ -13,6 +14,13 @@ class App {
     $this->_server = $_SERVER;
     $this->config = new Config(__DIR__ . '/config.ini');
     $this->request = new Request;
+    $this->session = new Session;
+  }
+
+  public function redirect($url, $status = 200)
+  {
+    header('Status: '.$status);
+    header('Location: '.$url);
   }
 
   public function get($pattern, $callback) {
@@ -85,6 +93,18 @@ class Request {
   public function get($var)
   {
     return isset($_GET[$var]) ? $_GET[$var] : null;
+  }
+}
+
+class Session {
+  public function get($var)
+  {
+    return isset($_SESSION[$var]) ? $_SESSION[$var] : null;
+  }
+
+  public function set($var, $value)
+  {
+    $_SESSION[$var] = $value;
   }
 }
 
