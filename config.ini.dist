@@ -1,4 +1,8 @@
 [email]
-address = mail@mail.com
-username = mail
-password = yourpasswordhere
+smtp_host = "smtp.mail.com"
+smtp_port = 465
+smtp_encryption = ssl
+address = "mail@mail.com"
+name = "Your name"
+smtp_username = "mail@mail.com"
+smtp_password = "password"

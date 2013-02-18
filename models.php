@@ -3,17 +3,11 @@ $mongo = new MongoClient();
 $db = $mongo->selectDB('blog');
 
 
-class Model
+class User
 {
-    public $_id;
-}
-
-class Post extends Model
-{
-    public $title;
-    public $created;
-    public $updated;
-    public $content;
-    public $tags = array();
-    public $isPublished;
+    public static function generateLoginToken($email)
+    {
+        // Yeah this is wrong. Just experimenting.
+        return sha1(mt_rand());
+    }
 }

@@ -81,6 +81,11 @@ class Request {
   {
     return isset($_POST[$var]) ? $_POST[$var] : null;
   }
+
+  public function get($var)
+  {
+    return isset($_GET[$var]) ? $_GET[$var] : null;
+  }
 }
 
 // use Halt-Exception instead of exit;

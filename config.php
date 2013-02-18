@@ -1,7 +1,7 @@
 <?php
 class Config
 {
-    public $config = array();
+    private $config = array();
 
     public function __construct($iniPath)
     {
@@ -11,5 +11,10 @@ class Config
         }
 
         $this->config = $ini;
+    }
+
+    public function get($var)
+    {
+        return isset($this->config[$var]) ? $this->config[$var] : null;
     }
 }

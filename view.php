@@ -11,9 +11,11 @@ class View
     public function render($template, array $data = array())
     {
         extract($data);
+
         ob_start();
         include $this->tpl_dir . $template;
-        ob_end_flush();
+
+        return ob_get_clean();
     }
 }
 
