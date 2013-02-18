@@ -29,11 +29,13 @@ class App {
 
   public function firewall()
   {
-    $sessionCookieName = 'user';
-    $sessionTokenValue = true;
-    if ($this->cookie->get($sessionCookieName) != $sessionTokenValue) {
-      $this->redirect('/');
+    $user = User::getByAuthCookie($this->cookie);
+    if ($user) {
+      $user->renewAuthCookie($this->cookie)->save();
+      return true;
     }
+    
+    $this->redirect('/');
   }
 
   public function get($pattern, $callback) {
@@ -132,12 +134,17 @@ class Cookie {
   public $expire = 0;
   public $path = '/';
   public $domain = null;
-  public $secure = false;
+  public $secure = false; // XXX This needs SSL/TLS. Get it.
   public $httponly = true;
 
   public function __construct()
   {
     $this->domain = $_SERVER['HTTP_HOST'];
+  }
+
+  public static function generate()
+  {
+    return new static;
   }
 
   public function setName($value) { $this->name = $value; return $this; }

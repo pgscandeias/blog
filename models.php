@@ -30,6 +30,7 @@ class User extends Model
     public $name;
     public $email;
     public $loginToken;
+    public $authToken;
 
     public function __construct(array $data = array())
     {
@@ -44,6 +45,27 @@ class User extends Model
         return sha1(mt_rand());
     }
 
+    public function renewAuthCookie(Cookie $cookie)
+    {
+        $this->authToken = sha1(mt_rand()); // rong, rong, rong
+
+        $tokenCookie = $cookie::generate();
+        $tokenCookie
+            ->setName('auth_token')
+            ->setValue($this->authToken)
+            ->setExpire(time() + 3600 * 24 * 30)
+            ->setPath('/')
+            ->send()
+        ;
+
+        return $this;
+    }
+
+    public static function getByAuthCookie(Cookie $cookie)
+    {
+        return static::findOneBy(array('authToken' => $cookie->get('auth_token')));
+    }
+
     public function save()
     {
         $doc = array();
@@ -52,6 +74,7 @@ class User extends Model
             'name' => $this->name,
             'email' => $this->email,
             'loginToken' => $this->loginToken,
+            'authToken' => $this->authToken,
         ));
 
         $collection = static::$db->users;

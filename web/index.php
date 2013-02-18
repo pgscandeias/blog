@@ -55,9 +55,9 @@ $app->get('/login/sent', function() use ($app, $view) {
 
 $app->get('/auth?*', function() use ($app) {
     $user = false;
-    $token = (string) trim($app->request->get('t'));
-    if (!empty($token)) {
-        $user = User::findOneBy(array('loginToken' => $token));
+    $loginToken = (string) trim($app->request->get('t'));
+    if ($loginToken) {
+        $user = User::findOneBy(array('loginToken' => $loginToken));
     }
     if (!$user) { $app->redirect('/'); }
 
@@ -65,20 +65,10 @@ $app->get('/auth?*', function() use ($app) {
     // $user->loginToken = null;
     // $user->save();
 
-    // Start user session
-    $app->session->set('user', $user);
+    // Generate Auth Cookie token
+    $user->renewAuthCookie($app->cookie)->save();
 
-    // Remember the user
-    $cookie = new Cookie();
-    $cookie
-        ->setName('user')
-        ->setValue('logged')
-        ->setExpire(time() + 3600 * 24 * 30)
-        ->setPath('/')
-        ->send()
-    ;
-
-    // Admin entry point
+    // Go to admin entry point
     $app->redirect('/admin/posts');
 });
 
