@@ -18,7 +18,11 @@
                     </span>
                 </a>
             </h1>
-            <p>Admin area</p>
+            <p>
+                Admin area
+                |
+                <a href='/logout'>logout</a>
+            </p>
         </nav>
 
         <div class='container'>

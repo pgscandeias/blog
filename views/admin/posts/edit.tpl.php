@@ -1,7 +1,7 @@
 <? include __DIR__ . '/../_header.tpl.php' ?>
 
 <h2>Edit post</h2>
-<form action='/admin/posts/<?= $post->slug ?>' method='post' class='form-post'>
+<form action='/admin/posts/<?= $post->_id ?>' method='post' class='form-post'>
     <? include '_form.tpl.php' ?>
 
     <div>

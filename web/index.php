@@ -122,19 +122,19 @@ $app->post('/admin/posts', function() use ($app) {
     $app->redirect('/admin/posts/'.$post->slug);
 });
 
-$app->get('/admin/posts/:slug', function($slug) use ($app, $view) {
+$app->get('/admin/posts/:id', function($id) use ($app, $view) {
     $app->firewall();
 
-    $post = Post::findOneBy(array('slug' => $slug));
+    $post = Post::find($id);
     echo $view->render('admin/posts/edit.tpl.php', array(
         'post' => $post,
     ));
 });
 
-$app->post('/admin/posts/:slug', function($slug) use ($app, $view) {
+$app->post('/admin/posts/:id', function($id) use ($app, $view) {
     $app->firewall();
 
-    $post = Post::findOneBy(array('slug' => $slug));
+    $post = Post::find($id);
     $fields = array('title', 'slug', 'markdown', 'isPublished', 'isPage');
     foreach ($fields as $field) {
         $post->{$field} = $app->request->post($field);
