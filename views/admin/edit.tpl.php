@@ -13,24 +13,26 @@
         </nav>
 
         <div class='container'>
-            <h2>New post</h2>
-            <form action='/admin/posts' method='post' class='form-post'>
+            <h2>Edit post</h2>
+            <form action='/admin/posts/<?= $post->slug ?>' method='post' class='form-post'>
                 <label>Title</label>
-                <input type='text' name='title' required>
+                <input type='text' name='title' value='<?= $post->title ?>' required>
 
                 <label>Slug</label>
-                <input type='text' name='slug' required>
+                <input type='text' name='slug' value='<?= $post->slug ?>'required>
 
                 <label>Post</label>
-                <textarea name='markdown' required></textarea>
+                <textarea name='markdown' required><?= $post->markdown ?></textarea>
 
                 <label>
-                    <input type='checkbox' name='isPublished' value='1'>
+                    <input type='checkbox' name='isPublished' value='1'
+                        <? if ($post->isPublished): ?>checked<? endif ?>
+                        >
                     Published
                 </label>
 
                 <div>
-                    <button type='submit'>Post</button>
+                    <button type='submit'>Update</button>
                     <a href='/admin/posts'>Cancel</a>
                 </div>
             </form>

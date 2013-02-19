@@ -81,8 +81,10 @@ $app->get('/logout', function() use ($app) {
 #
 # Public
 #
-$app->get('/', function() {
-    echo "Home page";
+$app->get('/', function() use ($view) {
+    echo $view->render('index.tpl.php', array(
+        'posts' => Post::all(),
+    ));
 });
 
 $app->get('/post/:slug', function($slug) use ($view) {
@@ -93,14 +95,47 @@ $app->get('/post/:slug', function($slug) use ($view) {
 #
 # Admin
 #
+$app->get('/admin/posts', function() use ($app, $view) {
+    $app->firewall();
+
+    echo $view->render('admin/posts.tpl.php', array(
+        'posts' => Post::all(),
+    ));
+});
+
 $app->get('/admin/write', function() use ($app, $view) {
     $app->firewall();
 
     echo $view->render('admin/write.tpl.php', array('foo' => 'bar'));
 });
 
-$app->get('/admin/posts', function() use ($app, $view) {
+$app->post('/admin/posts', function() use ($app) {
     $app->firewall();
 
-    echo "Admin zone";
+    $post = new Post($_POST);
+    $post->save();
+
+    $app->redirect('/admin/posts/'.$post->slug);
+});
+
+$app->get('/admin/posts/:slug', function($slug) use ($app, $view) {
+    $app->firewall();
+
+    $post = Post::findOneBy(array('slug' => $slug));
+    echo $view->render('admin/edit.tpl.php', array(
+        'post' => $post,
+    ));
+});
+
+$app->post('/admin/posts/:slug', function($slug) use ($app, $view) {
+    $app->firewall();
+
+    $post = Post::findOneBy(array('slug' => $slug));
+    $post->title = $app->request->post('title');
+    $post->slug = $app->request->post('slug');
+    $post->markdown = $app->request->post('markdown');
+    $post->isPublished = $app->request->post('isPublished');
+    $post->save();
+
+    $app->redirect('/admin/posts');
 });

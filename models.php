@@ -2,11 +2,39 @@
 $mongo = new MongoClient();
 $db = $mongo->selectDB('blog');
 
+
 class Model
 {
     public static $db;
-    public static $collection = '';
+    public static $_collection = '';
+    public static $_fields = array();
     protected $writeConcerns = array('w' => 1);
+
+    public $_id;
+
+
+    public function __construct(array $data = array())
+    {
+        foreach ($data as $var=>$value) {
+            $this->{$var} = $value;
+        }
+    }
+
+    public function save()
+    {
+        $doc = array();
+        if (!empty($this->_id)) { $doc['_id'] = $this->_id; }
+
+        $values = array();
+        foreach (static::$_fields as $field) {
+            $values[$field] = $this->{$field};
+        }
+        $doc = array_merge($doc, $values);
+
+        $collection = static::$db->{static::$_collection};
+        $collection->save($doc, $this->writeConcerns);
+        $this->_id = $doc['_id']->{'$id'};
+    }
 
     public static function findOneBy(array $criteria = array())
     {
@@ -20,24 +48,31 @@ class Model
             return $model;
         }
     }
+
+    public static function all()
+    {
+        $output = array();
+        $collection = static::$db->{static::$_collection};
+        $docs = $collection->find();
+        foreach ($docs as $doc) {
+            $output[] = new static($doc);
+        }
+
+        return $output;
+    }
 }
+
 
 class User extends Model
 {
     public static $_collection = 'users';
-
-    public $_id;
+    public static $_fields = array('name', 'email', 'loginToken', 'authToken');
+    
     public $name;
     public $email;
     public $loginToken;
     public $authToken;
 
-    public function __construct(array $data = array())
-    {
-        foreach ($data as $var=>$value) {
-            $this->{$var} = $value;
-        }
-    }
 
     public static function generateLoginToken($email)
     {
@@ -65,21 +100,26 @@ class User extends Model
     {
         return static::findOneBy(array('authToken' => $cookie->get('auth_token')));
     }
+}
 
-    public function save()
+
+class Post extends Model{
+    public static $_collection = 'posts';
+    public static $_fields = array('title', 'slug', 'created', 'updated', 'isPublished', 'markdown', 'html');
+
+    public $created;
+    public $updated;
+    public $isPublished;
+    public $title;
+    public $slug;
+    public $markdown;
+    public $html;
+
+    public function __construct(array $data = array())
     {
-        $doc = array();
-        if (!empty($this->_id)) { $doc['_id'] = $this->_id; }
-        $doc = array_merge($doc, array(
-            'name' => $this->name,
-            'email' => $this->email,
-            'loginToken' => $this->loginToken,
-            'authToken' => $this->authToken,
-        ));
-
-        $collection = static::$db->users;
-        $collection->save($doc, $this->writeConcerns);
-        $this->_id = $doc['_id']->{'$id'};
+        parent::__construct($data);
+        $this->created = new DateTime();
+        $this->updated = new DateTime();
     }
 }
 

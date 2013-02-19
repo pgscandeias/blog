@@ -8,5 +8,6 @@ $db->users->drop();
 $user = new User(array(
     'name' => 'Pedro Gil Candeias',
     'email' => 'pgscandeias@gmail.com',
+    'loginToken' => '12345',
 ));
 $user->save();

@@ -1,0 +1,69 @@
+body {
+    font-size: 110%;
+    margin: 0;
+    padding: 0;
+    background: #ffe;
+    font-family: Georgia, Times, serif;
+}
+
+input, textarea, button {
+    padding: 0.5em;
+    font-size: inherit;
+    font-family: inherit;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+    border: 1px solid #ccc;
+}
+
+label {
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+nav {
+    background: #522;
+    color: #ffe;
+    width: 10em;
+    height: 100%;
+    padding: 0 1em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #522;
+    color: #ffe;
+}
+
+a {
+    color: #922;
+    text-decoration: none;
+    padding: 0.25em;
+}
+a:hover {
+    background: #fec;
+}
+
+.container {
+    margin-left: 14em;
+}
+
+
+/* Posts index */
+
+.posts {
+    list-style: none;
+}
+.posts a {
+    display: inline-block;
+}
+.posts .date {
+    display: block;
+    font-size: 0.9em;
+}
+.posts .title {
+    display: block;
+    font-size: 1.2em;
+    color: #333;
+}
