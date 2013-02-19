@@ -73,11 +73,11 @@ abstract class Model
         return new static($doc);
     }
 
-    public static function all($sort = null)
+    public static function all($criteria = array(), $sort = null)
     {
         $output = array();
         $collection = static::$db->{static::$_collection};
-        $docs = $collection->find();
+        $docs = $collection->find($criteria);
 
         if ($sort) {
             $docs->sort($sort);
@@ -155,6 +155,7 @@ class Post extends Model{
         'created' => 'datetime', 
         'updated' => 'datetime', 
         'isPublished' => 'bool', 
+        'isPrivate' => 'bool',
         'isPage' => 'bool', 
         'title' => 'string', 
         'slug' => 'string', 
@@ -165,6 +166,7 @@ class Post extends Model{
     public $created;
     public $updated;
     public $isPublished;
+    public $isPrivate;
     public $isPage;
     public $title;
     public $slug;
