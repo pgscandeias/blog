@@ -136,6 +136,7 @@ $app->post('/admin/posts/:slug', function($slug) use ($app, $view) {
     foreach ($fields as $field) {
         $post->{$field} = $app->request->post($field);
     }
+    $post->html = Post::md2html($post->markdown);
     $post->save();
 
     $app->redirect('/admin/posts');
