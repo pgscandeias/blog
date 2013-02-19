@@ -15,6 +15,7 @@ class PostTest extends PHPUnit_Framework_TestCase
             'created' => new DateTime('2009-11-12 10:11:12'),
             'updated' => new DateTime('2010-01-05 18:19:20'),
             'isPublished' => true,
+            'isPrivate' => false,
             'isPage' => true,
             'title' => 'Lorem ipsum',
             'slug' => 'lorem-ipsum',
