@@ -1,6 +1,7 @@
 body {
     font-size: 110%;
-    margin: 0;
+    line-height: 1.35em;
+    margin: 0 0 10em 0;
     padding: 0;
     background: #fffff9;
     font-family: Georgia, Times, serif;
@@ -96,6 +97,9 @@ a:hover {
 
 .posts {
     list-style: none;
+}
+.posts li {
+    margin-bottom: 0.75em;
 }
 .posts a {
     display: inline-block;
