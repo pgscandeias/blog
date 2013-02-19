@@ -12,7 +12,11 @@
     <body>
         <nav>
             <h1>
-                <a href='/admin'>Pedro Gil Candeias</a>
+                <a href='/admin' class='logo'>
+                    <span class='name'>
+                        Pedro Gil Candeias
+                    </span>
+                </a>
             </h1>
             <p>Admin area</p>
         </nav>
