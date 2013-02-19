@@ -24,7 +24,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 nav {
-    color: #a99;
     text-align: right;
     width: 10em;
     height: 100%;
@@ -32,6 +31,14 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
+}
+nav h1 a {
+    color: #a99;
+    padding: 0;
+}
+nav h1 a:hover {
+    color: #988;
+    background: inherit;
 }
 
 a {
@@ -49,6 +56,7 @@ a:hover {
 
 .unstyled {
     list-style: none;
+    padding-left: 0
 }
 
 

@@ -88,7 +88,10 @@ $app->get('/', function() use ($view) {
 });
 
 $app->get('/post/:slug', function($slug) use ($view) {
-    echo "Post page";
+    echo $view->render('post.tpl.php', array(
+        'posts' => Post::all(),
+        'post' => Post::findOneBy(array('slug' => (string) $slug)),
+    ));
 });
 
 
