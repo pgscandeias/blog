@@ -1,6 +1,6 @@
 <?php
 
-class Model
+abstract class Model
 {
     public static $db;
     public static $_collection = '';
@@ -12,8 +12,15 @@ class Model
 
     public function __construct(array $data = array())
     {
-        foreach ($data as $var=>$value) {
-            $this->{$var} = $value;
+        foreach ($data as $field=>$value) {
+            if (
+                isset(static::$_fields[$field])
+                && static::$_fields[$field] == 'datetime'
+                && is_a($value, 'MongoDate')
+            ) {
+                $this->{$field} = static::mongo2date($value);
+
+            } else { $this->{$field} = $value; }
         }
     }
 
@@ -23,14 +30,31 @@ class Model
         if (!empty($this->_id)) { $doc['_id'] = $this->_id; }
 
         $values = array();
-        foreach (static::$_fields as $field) {
-            $values[$field] = $this->{$field};
+        foreach (static::$_fields as $field => $type) {
+            $value = null;
+            switch ($type) {
+                case 'string':
+                    $value = (string) $this->{$field};
+                    break;
+
+                case 'int':
+                    $value = (int) $this->{$field};
+                    break;
+
+                case 'datetime':
+                    $value = static::date2mongo($this->{$field});
+                    break;
+
+                case 'bool':
+                    $value = (bool) $this->{$field};
+                    break;
+            }
+            $doc[$field] = $value;
         }
-        $doc = array_merge($doc, $values);
 
         $collection = static::$db->{static::$_collection};
         $collection->save($doc, $this->writeConcerns);
-        $this->_id = $doc['_id']->{'$id'};
+        $this->_id = $doc['_id'];
     }
 
     public static function findOneBy(array $criteria = array())
@@ -41,6 +65,12 @@ class Model
             
             return $model;
         }
+    }
+
+    public static function find($_id)
+    {
+        $doc = static::$db->{static::$_collection}->findOne(array('_id' => $_id));
+        return new static($doc);
     }
 
     public static function all($sort = null)
@@ -59,13 +89,30 @@ class Model
 
         return $output;
     }
+
+    public static function date2mongo($date)
+    {
+        return is_a($date, 'DateTime') ?
+                    new MongoDate(strtotime($date->format('Y-m-d H:i:s')))
+                        : new MongoDate((string) $date);
+    }
+
+    public static function mongo2date(MongoDate $mongoDate)
+    {
+        return new DateTime(date('Y-m-d H:i:s', $mongoDate->sec));
+    }
 }
 
 
 class User extends Model
 {
     public static $_collection = 'users';
-    public static $_fields = array('name', 'email', 'loginToken', 'authToken');
+    public static $_fields = array(
+        'name' => 'string',
+        'email' => 'string',
+        'loginToken' => 'string',
+        'authToken' => 'string',
+    );
     
     public $name;
     public $email;
@@ -105,8 +152,14 @@ class User extends Model
 class Post extends Model{
     public static $_collection = 'posts';
     public static $_fields = array(
-        'title', 'slug', 'created', 'updated', 
-        'isPublished', 'isPage', 'markdown', 'html'
+        'created' => 'datetime', 
+        'updated' => 'datetime', 
+        'isPublished' => 'bool', 
+        'isPage' => 'bool', 
+        'title' => 'string', 
+        'slug' => 'string', 
+        'markdown' => 'string', 
+        'html' => 'string'
     );
 
     public $created;
@@ -121,14 +174,13 @@ class Post extends Model{
     public function __construct(array $data = array())
     {
         parent::__construct($data);
-        $this->created = new DateTime();
-        $this->updated = new DateTime();
+        $this->created = $this->created ?: new DateTime();
+        $this->updated = $this->updated ?: new DateTime();
     }
 
-    public function save()
+    public static function md2html($string)
     {
-        require_once PWD . '/../vendor/markdown.php';
-        $this->html = Markdown($this->markdown);
-        return parent::save();
+        require_once APP_ROOT . '/vendor/markdown.php';
+        return Markdown($string);
     }
 }

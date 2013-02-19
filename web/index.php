@@ -53,8 +53,8 @@ $app->get('/auth?*', function() use ($app) {
     if (!$user) { $app->redirect('/'); }
 
     // Burn token
-    // $user->loginToken = null;
-    // $user->save();
+    $user->loginToken = null;
+    $user->save();
 
     // Generate Auth Cookie token
     $user->renewAuthCookie($app->cookie)->save();
@@ -113,6 +113,7 @@ $app->post('/admin/posts', function() use ($app) {
     $app->firewall();
 
     $post = new Post($_POST);
+    $post->html = Post::md2html($post->markdown);
     $post->save();
 
     $app->redirect('/admin/posts/'.$post->slug);

@@ -139,7 +139,7 @@ class Cookie {
 
   public function __construct()
   {
-    $this->domain = $_SERVER['HTTP_HOST'];
+    $this->domain = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
   }
 
   public static function generate()
