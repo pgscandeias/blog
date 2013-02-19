@@ -4,7 +4,7 @@
 <p class='date'><?= $post->created->format('Y-m-d') ?></p>
 
 <div class='post-html'>
-    <?= nl2br(e($post->html)) ?>
+    <?= $post->html ?>
 </div>
 
 <? include '_footer.tpl.php' ?>

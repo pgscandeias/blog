@@ -122,6 +122,13 @@ class Post extends Model{
         $this->created = new DateTime();
         $this->updated = new DateTime();
     }
+
+    public function save()
+    {
+        require_once PWD . '/../vendor/markdown.php';
+        $this->html = Markdown($this->markdown);
+        return parent::save();
+    }
 }
 
 
