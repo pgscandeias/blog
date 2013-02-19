@@ -1,17 +1,7 @@
 <?php
 # Core
 session_start();
-define("PWD", __DIR__);
-require_once PWD . '/../models.php';
-require_once PWD . '/../framework.php';
-require_once PWD . '/../view.php';
-
-
-# Composer
-require_once PWD . '/../vendor/autoload.php';
-
-$app = new App();
-$view = new View(__DIR__ . '/../views/');
+require_once __DIR__ . '/../bootstrap.php';
 
 
 #

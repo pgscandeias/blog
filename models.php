@@ -1,7 +1,4 @@
 <?php
-$mongo = new MongoClient();
-$db = $mongo->selectDB('blog');
-
 
 class Model
 {
@@ -135,6 +132,3 @@ class Post extends Model{
         return parent::save();
     }
 }
-
-
-Model::$db = $db;
