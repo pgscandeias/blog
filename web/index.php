@@ -19,8 +19,7 @@ $app->post('/login', function() use ($app, $view) {
     $user = User::findOneBy(array('email' => $email));
     if ($user) {
         $emailBody = $view->render('auth/email.tpl.php', array('link' => $link));
-        #$user->loginToken = $token;
-        $user->loginToken = "12345";
+        $user->loginToken = $token;
         $user->save();
 
         try {
