@@ -123,3 +123,19 @@ pre code {
     font-size: 1.2em;
     color: #333;
 }
+.posts .unPublished {
+    color: #999;
+}
+
+.tag {
+    color: #fff;
+    background: #777;
+    display: inline-block;
+    padding: 0.25em;
+    margin-right: 0.5em;
+    font-size: 0.75em;
+    border-radius: 0.25em
+}
+.tag-private {
+    background: #f50;
+}
