@@ -40,11 +40,8 @@ class Model
     {
         $doc = static::$db->{static::$_collection}->findOne($criteria);
         if ($doc) {
-            $model = new static();
-            foreach ($doc as $var=>$value) {
-                $model->{$var} = $value;
-            }
-
+            $model = new static($doc);
+            
             return $model;
         }
     }
