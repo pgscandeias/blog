@@ -98,10 +98,14 @@ $app->get('/post/:slug', function($slug) use ($view) {
 #
 # Admin
 #
+$app->get('/admin', function() use ($app) {
+    $app->redirect('/admin/posts');
+});
+
 $app->get('/admin/posts', function() use ($app, $view) {
     $app->firewall();
 
-    echo $view->render('admin/posts.tpl.php', array(
+    echo $view->render('admin/posts/index.tpl.php', array(
         'posts' => Post::all(),
     ));
 });
@@ -109,7 +113,7 @@ $app->get('/admin/posts', function() use ($app, $view) {
 $app->get('/admin/write', function() use ($app, $view) {
     $app->firewall();
 
-    echo $view->render('admin/write.tpl.php', array(
+    echo $view->render('admin/posts/write.tpl.php', array(
         'post' => new Post,
     ));
 });
@@ -127,7 +131,7 @@ $app->get('/admin/posts/:slug', function($slug) use ($app, $view) {
     $app->firewall();
 
     $post = Post::findOneBy(array('slug' => $slug));
-    echo $view->render('admin/edit.tpl.php', array(
+    echo $view->render('admin/posts/edit.tpl.php', array(
         'post' => $post,
     ));
 });
