@@ -69,7 +69,7 @@ abstract class Model
 
     public static function find($_id)
     {
-        $doc = static::$db->{static::$_collection}->findOne(array('_id' => $_id));
+        $doc = static::$db->{static::$_collection}->findOne(array('_id' => new MongoId($_id)));
         return new static($doc);
     }
 
