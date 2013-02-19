@@ -23,6 +23,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
 
+h1 {
+    margin-bottom: 0;
+}
+
 nav {
     text-align: right;
     width: 250px;
@@ -32,14 +36,41 @@ nav {
     top: 0;
     left: 0;
 }
-nav h1 a {
+nav .intro {
+    font-weight: normal;
+    color: #a99;
+}
+nav .logo {
     color: #a99;
     padding: 0;
 }
-nav h1 a:hover {
+nav .logo:hover {
     color: #988;
     background: inherit;
 }
+nav .name {
+    display: block;
+}
+nav .gravatar {
+    border-radius: 40px;
+    margin-bottom: 1em;
+}
+
+nav .tagline {
+    margin-top: 0;
+    margin-bottom: 2em;
+    color: #555;
+}
+
+/* Side nav */
+.side-nav {
+    margin: 0;
+}
+.side-nav li {
+    overflow: hidden;
+    margin-bottom: 0.25em;
+}
+
 
 a {
     color: #922;
@@ -58,13 +89,6 @@ a:hover {
 .unstyled {
     list-style: none;
     padding-left: 0
-}
-
-
-/* Side nav */
-.side-nav li {
-    overflow: hidden;
-    margin-bottom: 0.25em;
 }
 
 

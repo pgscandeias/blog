@@ -12,10 +12,17 @@
     <body>
         <nav>
             <h1>
-                <a href='/'>
-                    Pedro Gil Candeias
+                <a href='/' class='logo'>
+                    <img class='gravatar' src='/img/pedro_gil_candeias.png'>
+                    <span class='name'>
+                        Pedro Gil Candeias
+                    </span>
                 </a>
             </h1>
+
+            <p class='tagline'>
+                Speaks Computer
+            </p>
 
             <ul class='unstyled side-nav'>
                 <li><a href='/'>Essays</a></li>
