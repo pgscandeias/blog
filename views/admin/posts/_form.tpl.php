@@ -15,6 +15,13 @@
 </label>
 
 <label>
+    <input type='checkbox' name='isPrivate' value='1'
+        <? if ($post->isPrivate): ?>checked<? endif ?>
+    >
+    Private
+</label>
+
+<label>
     <input type='checkbox' name='isPage' value='1'
         <? if ($post->isPage): ?>checked<? endif ?>
     >

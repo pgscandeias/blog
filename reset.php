@@ -21,7 +21,8 @@ foreach ($posterous as $p) {
         'title' => $p->title,
         'html' => utf8_encode(strip_tags(html_entity_decode($p->body_full))),
         'slug' => $p->slug,
-        'isPublished' => !$p->is_private,
+        'isPublished' => !$p->draft,
+        'isPrivate' => $p->is_private,
     ));
     $post->save();
 }
