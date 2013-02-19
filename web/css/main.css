@@ -2,7 +2,7 @@ body {
     font-size: 110%;
     margin: 0;
     padding: 0;
-    background: #ffe;
+    background: #fffff9;
     font-family: Georgia, Times, serif;
 }
 
@@ -25,7 +25,7 @@ h1, h2, h3, h4, h5, h6 {
 
 nav {
     text-align: right;
-    width: 10em;
+    width: 250px;
     height: 100%;
     padding: 0 1em;
     position: fixed;
@@ -51,7 +51,8 @@ a:hover {
 }
 
 .container {
-    margin-left: 14em;
+    margin-left: 350px;
+    max-width: 600px;
 }
 
 .unstyled {
