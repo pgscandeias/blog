@@ -149,4 +149,7 @@ $app->post('/admin/posts/:id/delete', function($id) use($app) {
     $app->firewall();
 
     $post = Post::find($id);
+    $post->delete();
+
+    $app->redirect('/admin/posts');
 });

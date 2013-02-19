@@ -8,3 +8,14 @@
 .form-post textarea {
     height: 20em;
 }
+
+.form-delete {
+    margin-top: 5em;
+}
+.form-delete button {
+    background: #900;
+    color: #fff;
+    border: 0;
+    padding: 0.1em 0.5em;
+    font-size: 0.8em;
+}

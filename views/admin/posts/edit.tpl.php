@@ -10,5 +10,8 @@
     </div>
 </form>
 
+<form action='/admin/posts/<?= $post->_id ?>/delete' method='post' class='form-delete'>
+    <button type='submit'>Delete</button>
+</form>
 
 <? include __DIR__ . '/../_footer.tpl.php' ?>
