@@ -5,7 +5,7 @@
 <input type='text' name='slug' value='<?= $post->slug ?>'required>
 
 <label>Post</label>
-<textarea name='markdown' required><?= $post->markdown ?></textarea>
+<textarea name='markdown' required><?= $post->markdown ?: $post->html ?></textarea>
 
 <label>
     <input type='checkbox' name='isPublished' value='1'
