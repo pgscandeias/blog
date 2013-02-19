@@ -84,7 +84,7 @@ $app->get('/logout', function() use ($app) {
 #
 $app->get('/', function() use ($view) {
     echo $view->render('index.tpl.php', array(
-        'posts' => Post::all(),
+        'posts' => Post::all(array('created' => -1)),
     ));
 });
 
@@ -107,7 +107,7 @@ $app->get('/admin/posts', function() use ($app, $view) {
     $app->firewall();
 
     echo $view->render('admin/posts/index.tpl.php', array(
-        'posts' => Post::all(),
+        'posts' => Post::all(array('created' => -1)),
     ));
 });
 

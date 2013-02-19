@@ -46,11 +46,16 @@ class Model
         }
     }
 
-    public static function all()
+    public static function all($sort = null)
     {
         $output = array();
         $collection = static::$db->{static::$_collection};
         $docs = $collection->find();
+
+        if ($sort) {
+            $docs->sort($sort);
+        }
+
         foreach ($docs as $doc) {
             $output[] = new static($doc);
         }
