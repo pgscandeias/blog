@@ -93,6 +93,21 @@ class ModelTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($this->dummyData[$field], $dbD->{$field});
         }
     }
+
+    public function testDelete()
+    {
+        $d = new Dummy($this->dummyData);
+        $d->save();
+
+        $id = $d->_id;
+
+        $dbD = Dummy::find($id);
+        $this->assertInstanceOf('Dummy', $dbD);
+
+        $dbD->delete();
+        $dbD2 = Dummy::find($id);
+        $this->assertEquals(null, $dbD2);
+    }
 }
 
 

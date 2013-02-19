@@ -144,3 +144,9 @@ $app->post('/admin/posts/:id', function($id) use ($app, $view) {
 
     $app->redirect('/admin/posts');
 });
+
+$app->post('/admin/posts/:id/delete', function($id) use($app) {
+    $app->firewall();
+
+    $post = Post::find($id);
+});

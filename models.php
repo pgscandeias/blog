@@ -57,6 +57,13 @@ abstract class Model
         $this->_id = $doc['_id'];
     }
 
+    public function delete()
+    {
+        static::$db->{static::$_collection}->remove(array(
+            '_id' => $this->_id
+        ));
+    }
+
     public static function findOneBy(array $criteria = array())
     {
         $doc = static::$db->{static::$_collection}->findOne($criteria);
@@ -70,7 +77,7 @@ abstract class Model
     public static function find($_id)
     {
         $doc = static::$db->{static::$_collection}->findOne(array('_id' => new MongoId($_id)));
-        return new static($doc);
+        return $doc ? new static($doc) : null;
     }
 
     public static function all($criteria = array(), $sort = null)
