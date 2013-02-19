@@ -105,11 +105,15 @@ class User extends Model
 
 class Post extends Model{
     public static $_collection = 'posts';
-    public static $_fields = array('title', 'slug', 'created', 'updated', 'isPublished', 'markdown', 'html');
+    public static $_fields = array(
+        'title', 'slug', 'created', 'updated', 
+        'isPublished', 'isPage', 'markdown', 'html'
+    );
 
     public $created;
     public $updated;
     public $isPublished;
+    public $isPage;
     public $title;
     public $slug;
     public $markdown;

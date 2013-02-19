@@ -106,7 +106,9 @@ $app->get('/admin/posts', function() use ($app, $view) {
 $app->get('/admin/write', function() use ($app, $view) {
     $app->firewall();
 
-    echo $view->render('admin/write.tpl.php', array('foo' => 'bar'));
+    echo $view->render('admin/write.tpl.php', array(
+        'post' => new Post,
+    ));
 });
 
 $app->post('/admin/posts', function() use ($app) {
@@ -131,10 +133,10 @@ $app->post('/admin/posts/:slug', function($slug) use ($app, $view) {
     $app->firewall();
 
     $post = Post::findOneBy(array('slug' => $slug));
-    $post->title = $app->request->post('title');
-    $post->slug = $app->request->post('slug');
-    $post->markdown = $app->request->post('markdown');
-    $post->isPublished = $app->request->post('isPublished');
+    $fields = array('title', 'slug', 'markdown', 'isPublished', 'isPage');
+    foreach ($fields as $field) {
+        $post->{$field} = $app->request->post($field);
+    }
     $post->save();
 
     $app->redirect('/admin/posts');

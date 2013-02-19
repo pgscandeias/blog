@@ -15,21 +15,7 @@
         <div class='container'>
             <h2>Edit post</h2>
             <form action='/admin/posts/<?= $post->slug ?>' method='post' class='form-post'>
-                <label>Title</label>
-                <input type='text' name='title' value='<?= $post->title ?>' required>
-
-                <label>Slug</label>
-                <input type='text' name='slug' value='<?= $post->slug ?>'required>
-
-                <label>Post</label>
-                <textarea name='markdown' required><?= $post->markdown ?></textarea>
-
-                <label>
-                    <input type='checkbox' name='isPublished' value='1'
-                        <? if ($post->isPublished): ?>checked<? endif ?>
-                        >
-                    Published
-                </label>
+                <? include 'post_form.tpl.php' ?>
 
                 <div>
                     <button type='submit'>Update</button>

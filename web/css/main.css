@@ -24,16 +24,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 nav {
-    background: #522;
-    color: #ffe;
+    color: #a99;
+    text-align: right;
     width: 10em;
     height: 100%;
     padding: 0 1em;
     position: fixed;
     top: 0;
     left: 0;
-    background: #522;
-    color: #ffe;
 }
 
 a {
@@ -47,6 +45,17 @@ a:hover {
 
 .container {
     margin-left: 14em;
+}
+
+.unstyled {
+    list-style: none;
+}
+
+
+/* Side nav */
+.side-nav li {
+    overflow: hidden;
+    margin-bottom: 0.25em;
 }
 
 
