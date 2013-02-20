@@ -77,10 +77,13 @@ $app->get('/', function() use ($view) {
     ));
 });
 
-$app->get('/post/:slug', function($slug) use ($view) {
+$app->get('/post/:slug', function($slug) use ($app, $view) {
+    $post = Post::findOneBy(array('slug' => (string) $slug));
+    $app->ifEmpty404($post, $view);
+
     echo $view->render('post.tpl.php', array(
         'pages' => Post::findPages(),
-        'post' => Post::findOneBy(array('slug' => (string) $slug)),
+        'post' => $post,
     ));
 });
 

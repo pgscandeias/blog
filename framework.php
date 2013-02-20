@@ -27,6 +27,13 @@ class App {
     header('Location: '.$url);
   }
 
+  public function ifEmpty404($var, $view) {
+    if (empty($var)) {
+      echo $view->render('404.tpl.php');
+      die();
+    }
+  }
+
   public function firewall()
   {
     $user = User::getByAuthCookie($this->cookie);

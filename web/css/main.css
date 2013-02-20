@@ -8,9 +8,8 @@ body {
 }
 
 a {
-    color: #555;
+    color: #900;
     text-decoration: none;
-    padding: 0.25em;
 }
 a:hover {
     color: #d00;
@@ -43,6 +42,9 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
+}
+nav a {
+    color: #333;
 }
 nav .intro {
     font-weight: normal;
@@ -98,8 +100,11 @@ pre code {
 
 .container {
     padding-top: 1em;
-    margin-left: 350px;
+    margin-left: 286px;
     max-width: 600px;
+}
+.container-wrapper {
+    margin-left: 2em;
 }
 
 .unstyled {
@@ -117,7 +122,15 @@ pre code {
     margin-bottom: 0.75em;
 }
 .posts a {
-    display: inline-block;
+    display: block;
+    padding: 0.25em 2em 0.75em;
+    color: #333;
+}
+
+.posts a:hover {
+    background: #933;
+    text-decoration: none;
+    color: #fff;
 }
 .posts .date {
     display: block;
@@ -126,7 +139,6 @@ pre code {
 .posts .title {
     display: block;
     font-size: 1.2em;
-    color: #333;
 }
 .posts .unPublished {
     color: #999;
