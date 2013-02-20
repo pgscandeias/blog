@@ -3,8 +3,17 @@ body {
     line-height: 1.35em;
     margin: 0 0 10em 0;
     padding: 0;
-    background: #fffff9;
+    background: #fffffd;
     font-family: Arial, sans-serif;
+}
+
+a {
+    color: #222;
+    text-decoration: none;
+    padding: 0.25em;
+}
+a:hover {
+    text-decoration: underline;
 }
 
 input, textarea, button {
@@ -49,15 +58,18 @@ nav .logo:hover {
 nav .name {
     display: block;
 }
-nav .gravatar {
-    border-radius: 40px;
+nav .avatar {
+    width: 120px;
+    border-radius: 10px;
     margin-bottom: 1em;
 }
 
-nav .tagline {
-    margin-top: 0;
+nav .intro {
+    margin-top: 1em;
     margin-bottom: 2em;
-    color: #555;
+    line-height: 1.25em;
+    color: #777;
+    font-size: 0.8em
 }
 
 /* Side nav */
@@ -69,15 +81,6 @@ nav .tagline {
     margin-bottom: 0.25em;
 }
 
-
-a {
-    color: #922;
-    text-decoration: none;
-    padding: 0.25em;
-}
-a:hover {
-    background: #fec;
-}
 
 code {
     display: inline-block;
