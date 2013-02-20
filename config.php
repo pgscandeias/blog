@@ -1,20 +1,20 @@
 <?php
 class Config
 {
-    private $config = array();
+    public static $config = array();
 
-    public function __construct($iniPath)
+    public static function _init($iniPath)
     {
         $ini = parse_ini_file($iniPath);
         if (!$ini) {
             throw new Exception('No valid config file found');
         }
 
-        $this->config = $ini;
+        static::$config = $ini;
     }
 
-    public function get($var)
+    public static function get($var)
     {
-        return isset($this->config[$var]) ? $this->config[$var] : null;
+        return isset(static::$config[$var]) ? static::$config[$var] : null;
     }
 }

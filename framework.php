@@ -1,6 +1,5 @@
 <?php
 set_exception_handler('App::exception'); // bootstrap
-require_once 'config.php';
 
 class App {
   protected $_server = array();
@@ -8,17 +7,15 @@ class App {
   public $request;
   public $session;
   public $cookie;
-  public $config;
   public $mail;
 
   public function __construct() {
     // skipped mocking here
     $this->_server = $_SERVER;
-    $this->config = new Config(__DIR__ . '/config.ini');
     $this->request = new Request;
     $this->session = new Session;
     $this->cookie = new Cookie;
-    $this->mail = new Mail($this->config);
+    $this->mail = new Mail();
   }
 
   public function redirect($url, $status = 200)
@@ -184,24 +181,19 @@ class Cookie {
 class Mail {
   public $config;
 
-  public function __construct(Config $config)
-  {
-    $this->config = $config;
-  }
-
   public function send($to, $subject, $body)
   {
     $transport = Swift_SmtpTransport::newInstance()
-                ->setHost($this->config->get('smtp_host'))
-                ->setPort($this->config->get('smtp_port'))
-                ->setEncryption($this->config->get('smtp_encryption'))
-                ->setUsername($this->config->get('smtp_username'))
-                ->setPassword($this->config->get('smtp_password'))
+                ->setHost(Config::get('smtp_host'))
+                ->setPort(Config::get('smtp_port'))
+                ->setEncryption(Config::get('smtp_encryption'))
+                ->setUsername(Config::get('smtp_username'))
+                ->setPassword(Config::get('smtp_password'))
     ;
     $mailer = Swift_Mailer::newInstance($transport);
     $message = Swift_Message::newInstance()
                 ->setSubject($subject)
-                ->setFrom(array($this->config->get('address') => $this->config->get('name')))
+                ->setFrom(array(Config::get('address') => Config::get('name')))
                 ->setTo(array($to))
                 ->setBody($body)
     ;
