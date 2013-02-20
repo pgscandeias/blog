@@ -3,7 +3,6 @@
 session_start();
 require_once __DIR__ . '/../bootstrap.php';
 
-
 #
 # Auth
 #
@@ -14,7 +13,7 @@ $app->get('/login', function() use ($view) {
 $app->post('/login', function() use ($app, $view) {
     $email = (string) $app->request->post('email');
     $token = User::generateLoginToken($email);
-    $link = 'http://blog/auth?t='.$token;
+    $link = 'http://'.$_SERVER['HTTP_HOST'].'/auth?t='.$token;
 
     $user = User::findOneBy(array('email' => $email));
     if ($user) {
