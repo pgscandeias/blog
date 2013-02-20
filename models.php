@@ -192,4 +192,28 @@ class Post extends Model{
         require_once APP_ROOT . '/vendor/markdown.php';
         return Markdown($string);
     }
+
+    public static function findPages()
+    {
+        return Post::all(
+            array(
+                'isPublished' => true,
+                'isPrivate' => false,
+                'isPage' => true,
+            ),
+            array('created' => -1)
+        );
+    }
+
+    public static function findPosts()
+    {
+        return Post::all(
+            array(
+                'isPublished' => true,
+                'isPrivate' => false,
+                'isPage' => false,
+            ),
+            array('created' => -1)
+        );
+    }
 }
