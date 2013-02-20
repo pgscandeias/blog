@@ -11,8 +11,8 @@
 
     <body>
         <nav>
-            <h1>
-                <a href='/' class='logo'>
+            <h1 class='logo'>
+                <a href='/'>
                     <img class='avatar' src='/assets/avatar.jpg'>
                     <span class='name'>
                         Pedro Gil Candeias
