@@ -25,7 +25,7 @@
             </p>
 
             <ul class='unstyled side-nav'>
-                <li><a href='/'>Essays</a></li>
+                <li><a href='/'>Ramblings</a></li>
                 <? foreach ($posts as $p): ?>
                     <? if ($p->isPage): ?>
                         <li><a href='/post/<?= $p->slug ?>'><?= $p->title ?></a></li>
