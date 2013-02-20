@@ -16,6 +16,10 @@ a:hover {
     text-decoration: underline;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    margin: 2em 0 1em;
+}
+
 input, textarea, button {
     padding: 0.5em;
     font-size: inherit;
@@ -29,7 +33,7 @@ label {
     display: block;
 }
 
-h1 {
+.logo-title {
     margin-bottom: 0;
     font-weight: normal;
 }
@@ -142,6 +146,15 @@ pre code {
 }
 .posts .unPublished {
     color: #999;
+}
+
+.post-title {
+    margin-bottom: 0;
+}
+.post-date {
+    font-size: 0.8em;
+    color: #555;
+    margin-top: 0;
 }
 
 .tag {
