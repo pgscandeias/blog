@@ -133,13 +133,13 @@ class Cookie {
   public $value = '';
   public $expire = 0;
   public $path = '/';
-  public $domain = null;
+  public $domain = false;
   public $secure = false; // XXX This needs SSL/TLS. Get it.
   public $httponly = true;
 
   public function __construct()
   {
-    $this->domain = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
+    $this->domain = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : false;
   }
 
   public static function generate()
