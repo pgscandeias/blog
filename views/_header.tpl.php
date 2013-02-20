@@ -11,7 +11,7 @@
 
     <body>
         <nav>
-            <h1 class='logo'>
+            <h1 class='logo logo-title'>
                 <a href='/'>
                     <img class='avatar' src='/assets/avatar.jpg'>
                     <span class='name'>
