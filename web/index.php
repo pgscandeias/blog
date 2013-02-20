@@ -72,35 +72,14 @@ $app->get('/logout', function() use ($app) {
 #
 $app->get('/', function() use ($view) {
     echo $view->render('index.tpl.php', array(
-        'posts' => Post::all(
-            array(
-                'isPublished' => true,
-                'isPrivate' => false,
-                'isPage' => false,
-            ),
-            array('created' => -1)
-        ),
-        'pages' => Post::all(
-            array(
-                'isPublished' => true,
-                'isPrivate' => false,
-                'isPage' => true,
-            ),
-            array('created' => -1)
-        ),
+        'posts' => Post::findPosts(),
+        'pages' => Post::findPages(),
     ));
 });
 
 $app->get('/post/:slug', function($slug) use ($view) {
     echo $view->render('post.tpl.php', array(
-        'pages' => Post::all(
-            array(
-                'isPublished' => true,
-                'isPrivate' => false,
-                'isPage' => true,
-            ),
-            array('created' => -1)
-        ),
+        'pages' => Post::findPages(),
         'post' => Post::findOneBy(array('slug' => (string) $slug)),
     ));
 });
