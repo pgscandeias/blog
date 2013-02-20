@@ -13,19 +13,20 @@
         <nav>
             <h1>
                 <a href='/' class='logo'>
-                    <img class='gravatar' src='/img/pedro_gil_candeias.png'>
+                    <img class='avatar' src='/assets/avatar.jpg'>
                     <span class='name'>
                         Pedro Gil Candeias
                     </span>
                 </a>
             </h1>
 
-            <p class='tagline'>
-                Speaks Computer
+            <p class='intro'>
+                programmer and product designer
+                specialized in web applications
             </p>
 
             <ul class='unstyled side-nav'>
-                <li><a href='/'>Ramblings</a></li>
+                <li><a href='/'>ramblings</a></li>
                 <? foreach ($posts as $p): ?>
                     <? if ($p->isPage): ?>
                         <li><a href='/post/<?= $p->slug ?>'><?= $p->title ?></a></li>
