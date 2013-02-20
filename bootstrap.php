@@ -29,7 +29,7 @@ catch (Exception $e) {
     }
     die;
 }
-Model::$db = $mongo->selectDB('blog');
+Model::$db = $mongo->selectDB(Config::get('db_name'));
 
 # Init
 $app = new App();
