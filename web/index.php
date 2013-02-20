@@ -117,7 +117,7 @@ $app->post('/admin/posts', function() use ($app) {
     $post->html = Post::md2html($post->markdown);
     $post->save();
 
-    $app->redirect('/admin/posts/'.$post->slug);
+    $app->redirect('/admin/posts/'.$post->_id);
 });
 
 $app->get('/admin/posts/:id', function($id) use ($app, $view) {
