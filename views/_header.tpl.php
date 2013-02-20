@@ -27,12 +27,10 @@
 
             <ul class='unstyled side-nav'>
                 <li><a href='/'>ramblings</a></li>
-                <? foreach ($posts as $p): ?>
-                    <? if ($p->isPage): ?>
-                        <li><a href='/post/<?= $p->slug ?>'>
-                            <?= strtolower($p->title) ?>
-                        </a></li>
-                    <? endif; ?>
+                <? foreach ($pages as $p): ?>
+                    <li><a href='/post/<?= $p->slug ?>'>
+                        <?= strtolower($p->title) ?>
+                    </a></li>
                 <? endforeach; ?>
             </ul>
         </nav>

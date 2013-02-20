@@ -73,7 +73,19 @@ $app->get('/logout', function() use ($app) {
 $app->get('/', function() use ($view) {
     echo $view->render('index.tpl.php', array(
         'posts' => Post::all(
-            array('isPublished' => true, 'isPrivate' => false),
+            array(
+                'isPublished' => true,
+                'isPrivate' => false,
+                'isPage' => false,
+            ),
+            array('created' => -1)
+        ),
+        'pages' => Post::all(
+            array(
+                'isPublished' => true,
+                'isPrivate' => false,
+                'isPage' => true,
+            ),
             array('created' => -1)
         ),
     ));
@@ -81,7 +93,14 @@ $app->get('/', function() use ($view) {
 
 $app->get('/post/:slug', function($slug) use ($view) {
     echo $view->render('post.tpl.php', array(
-        'posts' => Post::all(array('isPage' => true)),
+        'pages' => Post::all(
+            array(
+                'isPublished' => true,
+                'isPrivate' => false,
+                'isPage' => true,
+            ),
+            array('created' => -1)
+        ),
         'post' => Post::findOneBy(array('slug' => (string) $slug)),
     ));
 });
