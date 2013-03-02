@@ -23,7 +23,7 @@ $dsn.= '/'.Config::get('db_name');
 try { $mongo = new MongoClient($dsn); }
 catch (Exception $e) {
     echo "Database error";
-    if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1') { # XXX: Fugly. What about VMs?
+    if (Config::get('environment') == 'dev') {
         echo "<br>".$dsn;
         var_dump($e->getMessage());
     }
