@@ -1,5 +1,6 @@
 <?php
 set_exception_handler('App::exception'); // bootstrap
+require_once 'router.php';
 
 class App {
   protected $_server = array();
@@ -58,23 +59,12 @@ class App {
   protected function _route($method, $pattern, $callback) {
     if ($this->_server['REQUEST_METHOD']!=$method) return;
 
-    // convert URL parameter (e.g. ":id", "*") to regular expression
-    $regex = preg_replace('#:([\w]+)#', '(?<\\1>[^/]+)', 
-        str_replace(array('*', ')'), array('[^/]+', ')?'), $pattern)
-    );
-    if (substr($pattern,-1)==='/') $regex .= '?';
+    $r = new Router;
 
-    // extract parameter values from URL if route matches the current request
-    if (!preg_match('#^'.$regex.'$#', $this->_server['REQUEST_URI'], $values)) {
-      return;
-    }
-    // extract parameter names from URL
-    preg_match_all('#:([\w]+)#', $pattern, $params, PREG_PATTERN_ORDER);
-    $args = array();
-    foreach ($params[1] as $param) {
-      if (isset($values[$param])) $args[] = urldecode($values[$param]);
-    }
-    $this->_exec($callback, $args);
+    $match = $r->matchPattern($pattern, $_SERVER['REQUEST_URI']);
+    if (!$match) return;
+    
+    $this->_exec($callback, $match['arguments']);
   }
 
   protected function _exec(&$callback, &$args) {

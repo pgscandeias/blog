@@ -36,9 +36,12 @@ class RouterTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($r->matchPattern('/foo/:a1/:a2', '/foo/bar/baz'));
 
         $expectedArguments = array(
-            'controller' => 'users',
-            'action' => 'login',
-            'param' => 'remember',
+            'match' => true,
+            'arguments' => array(
+                'controller' => 'users',
+                'action' => 'login',
+                'param' => 'remember',
+            )
         );
         $this->assertEquals($expectedArguments,
                             $r->matchPattern(

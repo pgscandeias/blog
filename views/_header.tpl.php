@@ -21,8 +21,7 @@
             </h1>
 
             <p class='intro'>
-                programmer and product designer
-                specialized in web applications
+                web app developer
             </p>
 
             <ul class='unstyled side-nav'>

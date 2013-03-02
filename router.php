@@ -32,7 +32,10 @@ class Router
           if (isset($values[$param])) $args[$param] = urldecode($values[$param]);
         }
 
-        return $args;
+        return array(
+            'match' => true,
+            'arguments' => $args
+        );
     }
 
     public function extractArguments($pattern, $values) {
