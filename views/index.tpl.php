@@ -3,7 +3,7 @@
 <ul class='unstyled posts'>
     <? foreach ($posts as $p): ?>
     <li>
-        <a href='/post/<?= $p->slug ?>'>
+        <a href='/<?= $p->slug ?>'>
             <span class='date'>
                 <?= $p->created->format('Y-m-d') ?>
             </span>

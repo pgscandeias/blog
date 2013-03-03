@@ -77,15 +77,25 @@ $app->get('/', function() use ($view) {
     ));
 });
 
-$app->get('/post/:slug', function($slug) use ($app, $view) {
+function renderPost($slug, $app, $view)
+{
     $post = Post::findOneBy(array('slug' => (string) $slug));
     $app->ifEmpty404($post, $view);
 
-    echo $view->render('post.tpl.php', array(
+    return $view->render('post.tpl.php', array(
         'pages' => Post::findPages(),
         'post' => $post,
     ));
+}
+
+$app->get('/post/:slug', function($slug) use ($app, $view) {
+    echo renderPost($slug, $app, $view);
 });
+
+$app->get('/:slug', function($slug) use ($app, $view) {
+    echo renderPost($slug, $app, $view);
+});
+
 
 
 #
