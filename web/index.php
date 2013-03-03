@@ -134,7 +134,7 @@ $app->post('/admin/posts/:id', function($id) use ($app, $view) {
     $app->firewall();
 
     $post = Post::find($id);
-    $fields = array('title', 'slug', 'markdown', 'isPublished', 'isPage');
+    $fields = array('title', 'slug', 'markdown', 'isPublished', 'isPage', 'isPrivate');
     foreach ($fields as $field) {
         $post->{$field} = $app->request->post($field);
     }
