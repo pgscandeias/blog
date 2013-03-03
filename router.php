@@ -4,15 +4,19 @@
  */
 class Router
 {
-    public function route() {}
-
     /**
      * Checks if a url matches a given pattern.
      * If it does, returns a list of arguments.
      */
-    public function matchPattern($pattern, $url) {
+    public static function matchPattern($pattern, $url) {
+        $return = array(
+            'match' => false,
+            'arguments' => array(),
+        );
+
         if ($url == $pattern) {
-            return true;
+            $return['match'] = true;
+            return $return;
         }
 
         // convert URL parameter (e.g. ":id", "*") to regular expression
@@ -32,21 +36,10 @@ class Router
           if (isset($values[$param])) $args[$param] = urldecode($values[$param]);
         }
 
+
         return array(
             'match' => true,
             'arguments' => $args
         );
-    }
-
-    public function extractArguments($pattern, $values) {
-        // extract parameter names from URL
-        preg_match_all('#:([\w]+)#', $pattern, $params, PREG_PATTERN_ORDER);
-
-        $args = array();
-        foreach ($params[1] as $param) {
-            if (isset($values[$param])) $args[$param] = urldecode($values[$param]);
-        }
-
-        return $args;
     }
 }

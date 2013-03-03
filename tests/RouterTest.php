@@ -23,18 +23,27 @@ class RouterTest extends PHPUnit_Framework_TestCase
 
     public function testMatchPattern()
     {
-        $r = new Router();
-
         // Simple urls
-        $this->assertNotEmpty($r->matchPattern('/', '/'));
-        $this->assertNotEmpty($r->matchPattern('/foo', '/foo'));
-        $this->assertEmpty($r->matchPattern('/foo', '/fooo'));
-        $this->assertEmpty($r->matchPattern('/foo', '/notfoo'));
+        $this->assertNotEmpty(Router::matchPattern('/', '/'));
+        $this->assertNotEmpty(Router::matchPattern('/foo', '/foo'));
+        $this->assertEmpty(Router::matchPattern('/foo', '/fooo'));
+        $this->assertEmpty(Router::matchPattern('/foo', '/notfoo'));
 
         // With named parameters
-        $this->assertNotEmpty($r->matchPattern('/foo/:a1', '/foo/bar'));
-        $this->assertNotEmpty($r->matchPattern('/foo/:a1/:a2', '/foo/bar/baz'));
+        $this->assertNotEmpty(Router::matchPattern('/foo/:a1', '/foo/bar'));
+        $this->assertNotEmpty(Router::matchPattern('/foo/:a1/:a2', '/foo/bar/baz'));
+    }
 
+    public function testArguments()
+    {
+        // Site root
+        $expectedArguments = array(
+            'match' => true,
+            'arguments' => array(),
+        );
+        $this->assertEquals($expectedArguments, Router::matchPattern('/', '/'));
+
+        // Complex route
         $expectedArguments = array(
             'match' => true,
             'arguments' => array(
@@ -44,7 +53,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->assertEquals($expectedArguments,
-                            $r->matchPattern(
+                            Router::matchPattern(
                                 '/:controller/:action/:param',
                                 '/users/login/remember'
                             ));
