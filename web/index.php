@@ -1,11 +1,11 @@
 <?php
 # Core
 session_start();
-require_once __DIR__ . '/../bootstrap.php';
+define("APP_ROOT", __DIR__ . "/../");
 
 
 #
-# Cached content
+# Serve cached content?
 #
 $slug = $_SERVER['REQUEST_URI'];
 $app->cachePath = APP_ROOT . '/cache/' . md5($slug);
@@ -14,6 +14,13 @@ if ($cached) {
     echo $cached;
     die;
 }
+
+
+#
+# Bootstrap
+#
+require_once __DIR__ . '/../bootstrap.php';
+
 
 #
 # Auth

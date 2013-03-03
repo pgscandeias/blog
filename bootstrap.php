@@ -1,5 +1,4 @@
 <?php
-define("APP_ROOT", __DIR__);
 
 # Configuration
 require_once 'config.php';
