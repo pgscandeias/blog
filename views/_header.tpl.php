@@ -27,7 +27,7 @@
             <ul class='unstyled side-nav'>
                 <li><a href='/'>ramblings</a></li>
                 <? if (isset($pages)): foreach ($pages as $p): ?>
-                    <li><a href='/<?= $p->slug ?>'>
+                    <li><a href='<?= $p->url() ?>'>
                         <?= strtolower($p->title) ?>
                     </a></li>
                 <? endforeach; endif; ?>

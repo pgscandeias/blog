@@ -10,7 +10,7 @@
 <ul class='posts'>
     <? foreach ($posts as $p): ?>
     <li>
-        <a href='/admin/posts/<?= $p->_id ?>' class='<?
+        <a href='<?= $p->adminUrl() ?>' class='<?
             if (!$p->isPublished) { echo 'unPublished '; }
         ?>'>
             <span class='date'>

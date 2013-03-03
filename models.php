@@ -216,4 +216,14 @@ class Post extends Model{
             array('created' => -1)
         );
     }
+
+    public function url()
+    {
+        return '/' . $this->slug;
+    }
+
+    public function adminUrl()
+    {
+        return '/admin/posts/' . $this->_id;
+    }
 }
