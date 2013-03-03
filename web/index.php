@@ -152,3 +152,10 @@ $app->post('/admin/posts/:id/delete', function($id) use($app) {
 
     $app->redirect('/admin/posts');
 });
+
+
+#
+# 404
+#
+echo $view->render('404.tpl.php');
+die;
