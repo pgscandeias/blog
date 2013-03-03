@@ -35,8 +35,7 @@ class Router
         foreach ($params[1] as $param) {
           if (isset($values[$param])) $args[$param] = urldecode($values[$param]);
         }
-
-
+        
         return array(
             'match' => true,
             'arguments' => $args

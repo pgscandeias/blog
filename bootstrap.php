@@ -5,6 +5,13 @@ define("APP_ROOT", __DIR__);
 require_once 'config.php';
 Config::_init(__DIR__ . '/config.ini');
 
+# Error reporting
+if (Config::get('environment') == 'dev') {
+    error_reporting(E_ALL);
+} else {
+    error_reporting(0);
+}
+
 # Composer
 require_once APP_ROOT . '/vendor/autoload.php';
 
