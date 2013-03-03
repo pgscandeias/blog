@@ -3,6 +3,18 @@
 session_start();
 require_once __DIR__ . '/../bootstrap.php';
 
+
+#
+# Cached content
+#
+$slug = $_SERVER['REQUEST_URI'];
+$app->cachePath = APP_ROOT . '/cache/' . md5($slug);
+$cached = @file_get_contents($app->cachePath);
+if ($cached) {
+    echo $cached;
+    die;
+}
+
 #
 # Auth
 #
@@ -70,11 +82,15 @@ $app->get('/logout', function() use ($app) {
 #
 # Public
 #
-$app->get('/', function() use ($view) {
-    echo $view->render('index.tpl.php', array(
+$app->get('/', function() use ($app, $view) {
+    $html = $view->render('index.tpl.php', array(
         'posts' => Post::findPosts(),
         'pages' => Post::findPages(),
     ));
+    file_put_contents($app->cachePath, $html);
+    echo $html;
+
+    return;
 });
 
 function renderPost($slug, $app, $view)
@@ -82,10 +98,14 @@ function renderPost($slug, $app, $view)
     $post = Post::findOneBy(array('slug' => (string) $slug));
     $app->ifEmpty404($post, $view);
 
-    return $view->render('post.tpl.php', array(
+    $html = $view->render('post.tpl.php', array(
         'pages' => Post::findPages(),
         'post' => $post,
     ));
+    file_put_contents($app->cachePath, $html);
+    echo $html;
+
+    return ;
 }
 
 $app->get('/post/:slug', function($slug) use ($app, $view) {

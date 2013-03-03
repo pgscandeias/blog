@@ -217,6 +217,13 @@ class Post extends Model{
         );
     }
 
+    public function save()
+    {
+        $this->invalidateCache();
+
+        return parent::save();
+    }
+
     public function url()
     {
         return '/' . $this->slug;
@@ -225,5 +232,17 @@ class Post extends Model{
     public function adminUrl()
     {
         return '/admin/posts/' . $this->_id;
+    }
+
+
+    private function invalidateCache()
+    {
+        // Post page cache
+        $cachePath = APP_ROOT . '/cache/' . md5($this->url());
+        @unlink($cachePath);
+
+        // Posts index cache
+        $cachePath = APP_ROOT . '/cache/' . md5('/');
+        @unlink($cachePath);
     }
 }
