@@ -12,7 +12,7 @@
     <body>
         <nav>
             <h1>
-                <a href='/admin' class='logo'>
+                <a href='/admin/posts' class='logo'>
                     <span class='name'>
                         Pedro Gil Candeias
                     </span>
