@@ -1,6 +1,12 @@
 <? include __DIR__ . '/../_header.tpl.php' ?>
 
-<h2>Edit post</h2>
+<h2>
+    Edit post
+    <small>
+        <a href='<?= $post->url() ?>'>[view]</a>
+    </small>
+</h2>
+
 <form action='/admin/posts/<?= $post->_id ?>' method='post' class='form-post'>
     <? include '_form.tpl.php' ?>
 
