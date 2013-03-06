@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pedro Gil Candeias</title>
+        <title><?
+            if (isset($title)) echo $title;
+            elseif (isset($post->title)) echo $post->title;
+            else echo "Pedro Gil Candeias";
+        ?></title>
 
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
