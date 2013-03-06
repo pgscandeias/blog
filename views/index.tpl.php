@@ -1,16 +1,9 @@
 <? include '_header.tpl.php' ?>
 
-<ul class='unstyled posts'>
-    <? foreach ($posts as $p): ?>
-    <li>
-        <a href='<?= $p->url() ?>'>
-            <span class='date'>
-                <?= $p->created->format('Y-m-d') ?>
-            </span>
-            <span class='title'><?= $p->title ?></span>
-        </a>
-    </li>
+<div class='container-wrapper'>
+    <? foreach ($posts as $post): ?>
+        <? include '_post.tpl.php' ?>
     <? endforeach ?>
-</ul>
+</div>
 
 <? include '_footer.tpl.php' ?>
