@@ -2,17 +2,22 @@
 # Core
 session_start();
 define("APP_ROOT", __DIR__ . "/../");
+define("CACHE_DIR", __DIR__ . "/../cache");
 
 
 #
 # Serve cached content?
 #
-$slug = $_SERVER['REQUEST_URI'];
-$app->cachePath = APP_ROOT . '/cache/' . md5($slug);
-$cached = @file_get_contents($app->cachePath);
-if ($cached) {
-    echo $cached;
-    die;
+function cachePath($url = null) {
+    $url = $url ?: $_SERVER['REQUEST_URI'];
+    return CACHE_DIR . '/' . md5($url);
+}
+if ($_SERVER['REMOTE_ADDR'] != '127.0.0.1') {
+    $cached = @file_get_contents(cachePath());
+    if ($cached) {
+        echo $cached;
+        die;
+    }
 }
 
 
@@ -94,7 +99,7 @@ $app->get('/', function() use ($app, $view) {
         'posts' => Post::findPosts(),
         'pages' => Post::findPages(),
     ));
-    file_put_contents($app->cachePath, $html);
+    file_put_contents(cachePath(), $html);
     echo $html;
 
     return;
@@ -109,7 +114,7 @@ function renderPost($slug, $app, $view)
         'pages' => Post::findPages(),
         'post' => $post,
     ));
-    file_put_contents($app->cachePath, $html);
+    file_put_contents(cachePath(), $html);
     echo $html;
 
     return ;

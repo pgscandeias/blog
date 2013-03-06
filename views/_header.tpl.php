@@ -5,6 +5,8 @@
 
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
+        <link href='http://fonts.googleapis.com/css?family=Roboto:300,500' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         <link rel="stylesheet" type="text/css" href="/css/admin.css">
     </head>

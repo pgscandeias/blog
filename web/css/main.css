@@ -1,10 +1,14 @@
+/**
+ * Typography
+ */
 body {
     font-size: 110%;
     line-height: 1.35em;
     margin: 1em 0 10em 0;
     padding: 0;
     background: #fffffd;
-    font-family: Arial, sans-serif;
+    font-family: "Roboto", Arial, sans-serif;
+    font-weight: 300;
 }
 
 a {
@@ -18,8 +22,30 @@ a:hover {
 
 h1, h2, h3, h4, h5, h6 {
     margin: 2em 0 1em;
+    font-family: "Roboto Condensed", Arial, sans-serif;
+    font-weight: 400;
 }
 
+strong, b {
+    font-weight: 500;
+}
+
+code {
+    display: inline-block;
+    margin: auto;
+    background: #eed;
+}
+pre code {
+    display: block;
+    margin: 1em 0;
+    padding: 0.5em;
+    
+}
+
+
+/**
+ * Forms
+ */
 input, textarea, button {
     padding: 0.5em;
     font-size: inherit;
@@ -91,17 +117,6 @@ nav .intro {
 }
 
 
-code {
-    display: inline-block;
-    margin: auto;
-    background: #eed;
-}
-pre code {
-    display: block;
-    margin: 1em 0;
-    padding: 0.5em;
-    
-}
 
 .container {
     padding-top: 1em;
