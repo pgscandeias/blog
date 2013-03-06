@@ -1,0 +1,12 @@
+#!/bin/sh
+
+pwd
+cd .. # blog dir
+cd htdocs # app code dir
+sudo git reset --hard
+sudo rm -f cache/*
+sudo git pull origin master
+cd ..
+sudo cp conf/config.ini htdocs/config.ini
+sudo chown -R www-data:www-data htdocs
+echo "All done"
