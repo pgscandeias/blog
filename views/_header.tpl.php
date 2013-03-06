@@ -13,14 +13,14 @@
 
     <body>
         <nav>
-            <h1 class='logo logo-title'>
+            <header class='site-title h'>
                 <a href='/'>
                     <img class='avatar' src='/assets/avatar.jpg'>
                     <span class='name'>
                         Pedro Gil Candeias
                     </span>
                 </a>
-            </h1>
+            </header>
 
             <p class='intro'>
                 web app developer
