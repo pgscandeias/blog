@@ -16,3 +16,6 @@ db_port     = 27017
 
 [environment]
 environment = dev
+
+[google]
+google_analytics_id = 'UA-XXXXXXX-XX'
