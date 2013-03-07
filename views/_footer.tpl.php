@@ -4,7 +4,7 @@
         <!-- Google Analytics -->
         <script type="text/javascript">
           var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', <?= Config::get('google_analytics_id') ?>]);
+          _gaq.push(['_setAccount', '<?= Config::get('google_analytics_id') ?>']);
           _gaq.push(['_trackPageview']);
           (function() {
             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
