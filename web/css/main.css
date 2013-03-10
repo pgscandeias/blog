@@ -14,14 +14,16 @@ body {
 a {
     color: #900;
     text-decoration: none;
+    border-bottom: 1px solid #ccc;
 }
 a:hover {
     color: #d00;
-    text-decoration: underline;
+    text-decoration: none;
+    border-bottom: 1px solid #d00;
 }
 
 p a {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -78,65 +80,57 @@ label {
     font-weight: normal;
 }
 
-nav {
-    text-align: right;
-    width: 250px;
-    height: 100%;
-    padding: 2em 1em 1em 1em;
-    position: fixed;
-    top: 0;
-    left: 0;
+.site-header {
+    text-align: center;
+    margin: 0 1em;
 }
-nav a {
+.site-header a {
     color: #333;
+    border: none;
 }
-nav .intro {
-    font-weight: normal;
-    color: #a99;
-}
-nav .logo a {
+.site-header .logo a {
     padding: 0;
 }
-nav .logo a:hover {
+.site-header .logo a:hover {
     color: #d00;
     background: inherit;
     text-decoration: none;
 }
-nav .name {
+.site-header .name {
     display: block;
 }
-nav .avatar {
+.site-header .avatar {
     width: 120px;
     border-radius: 10px;
-    margin-bottom: 1em;
+    margin-bottom: 0.25em;
 }
 
-nav .intro {
+.site-header .intro {
     margin-top: 1em;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
     line-height: 1.25em;
     color: #777;
     font-size: 0.8em
 }
 
-/* Side nav */
-.side-nav {
-    margin: 0;
+.header-nav {
+    line-height: 1.5em;
 }
-.side-nav li {
-    overflow: hidden;
-    margin-bottom: 0.25em;
+.header-nav li {
+    display: inline-block;
+    margin: 0 0.25em;
 }
-
+.header-nav li a {
+    border-bottom: 1px dotted #ccc;
+}
 
 
 .container {
     padding-top: 1em;
-    margin-left: 286px;
-    max-width: 600px;
+    margin: 0 1em;
 }
 .container-wrapper {
-    margin-left: 2em;
+    margin-left: 0;
 }
 
 .unstyled {
@@ -207,3 +201,70 @@ nav .intro {
 .tag-private {
     background: #f50;
 }
+
+
+
+/* Responsive */
+
+@media only screen and (min-width: 768px) {
+    .site-header {
+        text-align: right;
+        width: 250px;
+        height: 100%;
+        padding: 2em 1em 1em 1em;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    .site-title {
+        font-size: 1.5em;
+        font-weight: 500;
+    }
+
+    .site-header .intro {
+        font-weight: normal;
+        color: #a99;
+    }
+    .site-header .logo a {
+        padding: 0;
+    }
+    .site-header .logo a:hover {
+        color: #d00;
+        background: inherit;
+        text-decoration: none;
+    }
+    .site-header .name {
+        display: block;
+    }
+    .site-header .avatar {
+        width: 120px;
+        border-radius: 10px;
+        margin-bottom: 1em;
+    }
+
+    .site-header .intro {
+        margin-top: 1em;
+        margin-bottom: 2em;
+        line-height: 1.25em;
+        color: #777;
+        font-size: 0.8em
+    }
+
+    .header-nav {
+        line-height: 2em;
+    }
+    .header-nav li {
+        display: block;
+    }
+
+    .container {
+        padding-top: 1em;
+        margin-left: 286px;
+        max-width: 600px;
+    }
+    .container-wrapper {
+        margin-left: 2em;
+    }
+}
+
