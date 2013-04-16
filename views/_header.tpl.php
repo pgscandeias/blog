@@ -26,7 +26,7 @@
             </a>
 
             <p class='intro'>
-                web app developer
+                web dev | huge nerd
             </p>
 
             <ul class='unstyled header-nav'>

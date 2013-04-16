@@ -14,7 +14,7 @@ body {
 a {
     color: #900;
     text-decoration: none;
-    border-bottom: 1px solid #ccc;
+    /*border-bottom: 1px solid #ccc;*/
 }
 a:hover {
     color: #d00;
@@ -94,7 +94,7 @@ label {
 .site-header .logo a:hover {
     color: #d00;
     background: inherit;
-    text-decoration: none;
+    /*text-decoration: none;*/
 }
 .site-header .name {
     display: block;
@@ -121,7 +121,10 @@ label {
     margin: 0 0.25em;
 }
 .header-nav li a {
-    border-bottom: 1px dotted #ccc;
+    /*border-bottom: 1px dotted #ccc;*/
+}
+.header-nav li a:hover {
+    text-decoration: underline;
 }
 
 
@@ -232,7 +235,7 @@ label {
     .site-header .logo a:hover {
         color: #d00;
         background: inherit;
-        text-decoration: none;
+        /*text-decoration: none;*/
     }
     .site-header .name {
         display: block;
@@ -256,6 +259,9 @@ label {
     }
     .header-nav li {
         display: block;
+    }
+    .header-nav a:hover {
+        text-decoration: underline;
     }
 
     .container {
