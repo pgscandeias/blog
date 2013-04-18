@@ -142,6 +142,28 @@ label {
 }
 
 
+/**
+ * Footer
+ */
+
+.post-footer {
+    overflow: hidden;
+}
+.post-footer .post-avatar {
+    height: 5em;
+    float: left;
+    margin: 0 1em 1em 0;
+}
+.post-footer .about {
+    color: #777;
+    font-size: 0.8em;
+    margin: 0;
+}
+.post-footer h5 {
+    margin: 0;
+}
+
+
 /* Posts index */
 
 .posts {

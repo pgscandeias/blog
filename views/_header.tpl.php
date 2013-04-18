@@ -19,7 +19,7 @@
     <body>
         <header class='site-header'>
             <a href='/' class='site-title h'>
-                <img class='avatar' src='/assets/avatar.jpg'>
+                <img class='avatar' src='/assets/header.jpg'>
                 <span class='name'>
                     Pedro Gil Candeias
                 </span>
